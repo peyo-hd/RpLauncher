@@ -14,7 +14,7 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.VerticalGridPresenter;
 
 public class GridFragment extends VerticalGridFragment {
-    private static final int NUM_COLUMNS = 8;
+    private static final int NUM_COLUMNS = 5;
     private ArrayObjectAdapter mAdapter = new ArrayObjectAdapter(
     		new IconPresenter());
     

@@ -6,6 +6,7 @@ import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.view.ContextThemeWrapper;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 public class IconPresenter extends Presenter {
 	@Override
@@ -15,7 +16,8 @@ public class IconPresenter extends Presenter {
                     R.style.IconTheme));
         Resources res = view.getResources();
         view.setMainImageDimensions(res.getDimensionPixelSize(R.dimen.icon_width),
-                res.getDimensionPixelSize(R.dimen.icon_width));
+                res.getDimensionPixelSize(R.dimen.icon_height));
+        view.setMainImageScaleType(ImageView.ScaleType.CENTER);
         return new ViewHolder(view);
 	}
 

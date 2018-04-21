@@ -1,9 +1,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-beta1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
     }
 }
 
@@ -11,23 +12,17 @@ apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
+    google()
 }
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "com.peyo.launcherlb"
-        minSdkVersion 23
-        targetSdkVersion 24
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
+        minSdkVersion 25
+        targetSdkVersion 27
     }
 
     sourceSets {
@@ -40,7 +35,7 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-v4:24.+"
-    compile "com.android.support:recyclerview-v7:24.+"
-    compile "com.android.support:leanback-v17:24.+"
+    implementation "com.android.support:support-v4:27.1.1"
+    implementation "com.android.support:recyclerview-v7:27.1.1"
+    implementation "com.android.support:leanback-v17:27.1.1"
 }

@@ -13,9 +13,8 @@ import android.os.UserHandle;
 import android.os.UserManager;
 
 public class LauncherModel {
-    static final String TAG = "LauncherModel";
     public interface Callbacks {
-        public void bindAllApplications(ArrayList<LauncherActivityInfo> apps);
+        void bindAllApplications(ArrayList<LauncherActivityInfo> apps);
     }
     
     static final HandlerThread sWorkerThread = new HandlerThread("launcher-loader");
@@ -30,39 +29,31 @@ public class LauncherModel {
 	private UserManager mUserManager;
 	DeferredHandler mHandler = new DeferredHandler();
 	
-	public LauncherModel(LauncherAppState appState) {
-		Context context = appState.getContext();
-        mLauncherApps = (LauncherApps) context.getSystemService("launcherapps");
+	public LauncherModel(Context context, Callbacks callbacks) {
+        mLauncherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
-        mAppList = new ArrayList<LauncherActivityInfo>();
+        mAppList = new ArrayList<>();
+        mCallbacks = callbacks;
 	}
 
-	public void initialize(Callbacks callbacks) {
-		mCallbacks = callbacks;
-	}
-	
 	public void startLoader() {
-		mLoaderTask = new LoaderTask();
-        sWorker.post(mLoaderTask);
+        sWorker.post(new Runnable() {
+			@Override
+			public void run() {
+				final List<UserHandle> profiles = mUserManager.getUserProfiles();
+				mAppList.clear();
+				for (UserHandle user : profiles) {
+					final List<LauncherActivityInfo> apps = mLauncherApps.getActivityList(null, user);
+					mAppList.addAll(apps);
+				}
+				mHandler.post(new Runnable() {
+					public void run() {
+						if (mCallbacks != null) {
+							mCallbacks.bindAllApplications(mAppList);
+						}
+					}
+				});
+			}
+		});
 	}
-	
-	private LoaderTask mLoaderTask;
-    private class LoaderTask implements Runnable {
-		@Override
-		public void run() {
-        	final List<UserHandle> profiles = mUserManager.getUserProfiles();
-            mAppList.clear();
-            for (UserHandle user : profiles) {
-                final List<LauncherActivityInfo> apps = mLauncherApps.getActivityList(null, user);
-                mAppList.addAll(apps);
-            }
-	        mHandler.post(new Runnable() {
-	            public void run() {
-	                if (mCallbacks != null) {
-	                    mCallbacks.bindAllApplications(mAppList);
-	                }
-	            }
-	        });
-		}
-    }
 }

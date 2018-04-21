@@ -46,39 +46,12 @@ public class DeferredHandler {
         }
     }
 
-    public DeferredHandler() {
-    }
-
-
     public void post(Runnable runnable) {
         synchronized (mQueue) {
             mQueue.add(runnable);
             if (mQueue.size() == 1) {
                 scheduleNextLocked();
             }
-        }
-    }
-
-    /** Schedule runnable to run when the queue goes idle. */
-    public void postIdle(final Runnable runnable) {
-        post(new IdleRunnable(runnable));
-    }
-
-    public void cancelAll() {
-        synchronized (mQueue) {
-            mQueue.clear();
-        }
-    }
-
-    /** Runs all queued Runnables from the calling thread. */
-    public void flush() {
-        LinkedList<Runnable> queue = new LinkedList<Runnable>();
-        synchronized (mQueue) {
-            queue.addAll(mQueue);
-            mQueue.clear();
-        }
-        for (Runnable r : queue) {
-            r.run();
         }
     }
 
