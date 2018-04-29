@@ -2,7 +2,6 @@ package com.peyo.launcherlb;
 
 import java.util.ArrayList;
 import android.app.Activity;
-import android.content.pm.LauncherActivityInfo;
 import android.os.Bundle;
 
 public class Launcher extends Activity implements LauncherModel.Callbacks {
@@ -24,7 +23,7 @@ public class Launcher extends Activity implements LauncherModel.Callbacks {
 	}
 
 	@Override
-	public void bindAllApplications(ArrayList<LauncherActivityInfo> apps) {
+	public void bindAllApplications(ArrayList<AppInfo> apps) {
 		mFragment.updateApps(apps);
 	}
 }

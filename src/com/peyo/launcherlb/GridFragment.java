@@ -3,7 +3,6 @@ package com.peyo.launcherlb;
 import java.util.ArrayList;
 
 import android.content.Intent;
-import android.content.pm.LauncherActivityInfo;
 import android.os.Bundle;
 import android.support.v17.leanback.app.VerticalGridFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -29,7 +28,7 @@ public class GridFragment extends VerticalGridFragment {
         	@Override
 			public void onItemClicked(ViewHolder viewHolder, Object item,
 					RowPresenter.ViewHolder rowViewHolder, Row row) {
-        		LauncherActivityInfo info = (LauncherActivityInfo) item;
+        		AppInfo info = (AppInfo) item;
                 Intent intent = new Intent();
                 intent.setComponent(info.getComponentName());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
@@ -38,7 +37,7 @@ public class GridFragment extends VerticalGridFragment {
         });
     }
     
-	public void updateApps(ArrayList<LauncherActivityInfo> apps) {
+	public void updateApps(ArrayList<AppInfo> apps) {
         for (int i = 0; i < apps.size(); i++) {
         	mAdapter.add(apps.get(i));
         }

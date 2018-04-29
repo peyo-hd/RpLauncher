@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="IconViewStyle" parent="Widget.Leanback.ImageCardViewStyle">
-        <item name="lbImageCardViewType">Title</item>
-    </style> 
-    <style name="IconTheme" parent="Theme.Leanback">
-        <item name="imageCardViewStyle">@style/IconViewStyle</item>
-    </style>
-</resources>

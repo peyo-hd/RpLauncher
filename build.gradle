@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId "com.peyo.launcherlb"
-        minSdkVersion 25
+        minSdkVersion 21
         targetSdkVersion 27
     }
 
