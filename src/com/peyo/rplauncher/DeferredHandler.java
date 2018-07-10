@@ -1,4 +1,4 @@
-package com.peyo.launcherlb;
+package com.peyo.rplauncher;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
@@ -13,7 +13,8 @@ public class DeferredHandler {
     private MessageQueue mMessageQueue = Looper.myQueue();
     private Impl mHandler = new Impl();
 
-    @SuppressLint("HandlerLeak") class Impl extends Handler implements MessageQueue.IdleHandler {
+    @SuppressLint("HandlerLeak")
+    class Impl extends Handler implements MessageQueue.IdleHandler {
         public void handleMessage(Message msg) {
             Runnable r;
             synchronized (mQueue) {

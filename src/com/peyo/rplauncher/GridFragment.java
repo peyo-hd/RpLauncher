@@ -1,4 +1,4 @@
-package com.peyo.launcherlb;
+package com.peyo.rplauncher;
 
 import java.util.ArrayList;
 
@@ -15,31 +15,31 @@ import android.support.v17.leanback.widget.VerticalGridPresenter;
 public class GridFragment extends VerticalGridFragment {
     private static final int NUM_COLUMNS = 5;
     private ArrayObjectAdapter mAdapter = new ArrayObjectAdapter(
-    		new IconPresenter());
-    
+            new IconPresenter());
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-    	setAdapter(mAdapter);
+        super.onCreate(savedInstanceState);
+        setAdapter(mAdapter);
         VerticalGridPresenter gridPresenter = new VerticalGridPresenter();
         gridPresenter.setNumberOfColumns(NUM_COLUMNS);
         setGridPresenter(gridPresenter);
         setOnItemViewClickedListener(new OnItemViewClickedListener() {
-        	@Override
-			public void onItemClicked(ViewHolder viewHolder, Object item,
-					RowPresenter.ViewHolder rowViewHolder, Row row) {
-        		AppInfo info = (AppInfo) item;
+            @Override
+            public void onItemClicked(ViewHolder viewHolder, Object item,
+                                      RowPresenter.ViewHolder rowViewHolder, Row row) {
+                AppInfo info = (AppInfo) item;
                 Intent intent = new Intent();
                 intent.setComponent(info.getComponentName());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                 viewHolder.view.getContext().startActivity(intent);
-			}
+            }
         });
     }
-    
-	public void updateApps(ArrayList<AppInfo> apps) {
+
+    public void updateApps(ArrayList<AppInfo> apps) {
         for (int i = 0; i < apps.size(); i++) {
-        	mAdapter.add(apps.get(i));
+            mAdapter.add(apps.get(i));
         }
-	}
+    }
 }

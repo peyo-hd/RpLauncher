@@ -1,4 +1,4 @@
-package com.peyo.launcherlb;
+package com.peyo.rplauncher;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -18,7 +18,7 @@ public class AppInfo {
         mComponentName = new ComponentName(info.packageName, info.name);
     }
 
-    public  CharSequence getLabel() {
+    public CharSequence getLabel() {
         return mActivityInfo.loadLabel(mPm);
     }
 

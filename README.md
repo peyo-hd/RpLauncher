@@ -1,4 +1,4 @@
-LauncherLB
+RpLauncher
 ==========
 
 - Compile & Run with Android Studio
