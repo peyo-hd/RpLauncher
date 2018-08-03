@@ -4,6 +4,8 @@ include $(CLEAR_VARS)
 
 LOCAL_PACKAGE_NAME := RpLauncher
 LOCAL_MODULE_TAGS := optional
+LOCAL_OVERRIDES_PACKAGES := Home
+LOCAL_SDK_VERSION := current
 
 LOCAL_STATIC_JAVA_LIBRARIES := \
     android-support-v4 \
