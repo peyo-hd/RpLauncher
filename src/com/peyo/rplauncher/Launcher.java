@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.Settings;
 
 public class Launcher extends Activity implements LauncherModel.Callbacks {
     private LauncherModel mModel;
@@ -21,6 +22,9 @@ public class Launcher extends Activity implements LauncherModel.Callbacks {
         }
         mModel = new LauncherModel(getApplicationContext(), this);
         mModel.startLoader();
+
+        Settings.Secure.putInt(getContentResolver(),
+                Settings.Secure.TV_USER_SETUP_COMPLETE, 1);
     }
 
     @Override
