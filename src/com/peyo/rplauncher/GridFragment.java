@@ -3,6 +3,7 @@ package com.peyo.rplauncher;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v17.leanback.app.VerticalGridFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -35,6 +36,12 @@ public class GridFragment extends VerticalGridFragment {
                 viewHolder.view.getContext().startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getView().setBackgroundColor(Color.BLACK);
     }
 
     public void updateApps(ArrayList<AppInfo> apps) {
