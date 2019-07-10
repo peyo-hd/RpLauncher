@@ -1,0 +1,16 @@
+android_app {
+    name: "RpLauncher",
+    overrides: ["Home"],
+    platform_apis: true,
+    certificate: "platform",
+    privileged: true,
+
+    static_libs: [
+      "androidx.legacy_legacy-support-v4",
+      "androidx.recyclerview_recyclerview",
+      "androidx.leanback_leanback",
+    ],
+
+    srcs: ["src/**/*.kt"],
+    resource_dirs: ["res"],
+}
