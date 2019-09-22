@@ -53,7 +53,7 @@ class LauncherActivity : Activity(), LauncherModel.Callbacks {
     override fun bindAllApplications(apps: ArrayList<AppInfo>) {
         mFragment.updateApps(apps)
 
-        //Settings.Secure.putInt(getContentResolver(),
-        //        Settings.Secure.TV_USER_SETUP_COMPLETE, 1)
+        Settings.Secure.putInt(getContentResolver(),
+                Settings.Secure.TV_USER_SETUP_COMPLETE, 1)
     }
 }
