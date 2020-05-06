@@ -1,12 +1,13 @@
-package com.peyo.rplauncher
+package com.arpi.rplauncher
 
 import android.app.Activity
 import android.os.Bundle
+import android.provider.Settings
 import java.util.ArrayList
 
-class Launcher : Activity(), LauncherModel.Callbacks {
-    lateinit var mModel: LauncherModel
-    lateinit var mFragment: GridFragment
+class LauncherActivity : Activity(), LauncherModel.Callbacks {
+    private lateinit var mModel: LauncherModel
+    private lateinit var mFragment: GridFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,5 +24,8 @@ class Launcher : Activity(), LauncherModel.Callbacks {
 
     override fun bindAllApplications(apps: ArrayList<AppInfo>) {
         mFragment.updateApps(apps)
+
+        //Settings.Secure.putInt(getContentResolver(),
+        //        Settings.Secure.TV_USER_SETUP_COMPLETE, 1)
     }
 }

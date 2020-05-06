@@ -1,4 +1,4 @@
-package com.peyo.rplauncher
+package com.arpi.rplauncher
 
 import android.content.Context
 import android.content.Intent
@@ -7,15 +7,11 @@ import android.os.HandlerThread
 import java.util.ArrayList
 
 class LauncherModel(private val mContext: Context, private val mCallbacks: Callbacks?) {
-    private val mAppList: ArrayList<AppInfo>
-    internal var mHandler = DeferredHandler()
+    private val mAppList: ArrayList<AppInfo> = ArrayList()
+    private var mHandler = DeferredHandler()
 
     interface Callbacks {
         fun bindAllApplications(apps: ArrayList<AppInfo>)
-    }
-
-    init {
-        mAppList = ArrayList()
     }
 
     fun startLoader() {
@@ -65,7 +61,7 @@ class LauncherModel(private val mContext: Context, private val mCallbacks: Callb
 
     companion object {
 
-        internal val sWorkerThread = HandlerThread("launcher-loader")
+        private val sWorkerThread = HandlerThread("launcher-loader")
 
         init {
             sWorkerThread.start()
@@ -73,6 +69,6 @@ class LauncherModel(private val mContext: Context, private val mCallbacks: Callb
 
         internal val sWorker = Handler(sWorkerThread.looper)
 
-        private val CATEGORY_LEANBACK_SETTINGS = "android.intent.category.LEANBACK_SETTINGS"
+        private const val CATEGORY_LEANBACK_SETTINGS = "android.intent.category.LEANBACK_SETTINGS"
     }
 }

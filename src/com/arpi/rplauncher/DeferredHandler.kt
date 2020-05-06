@@ -1,6 +1,5 @@
-package com.peyo.rplauncher
+package com.arpi.rplauncher
 
-import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -12,7 +11,6 @@ class DeferredHandler {
     private val mMessageQueue = Looper.myQueue()
     private val mHandler = Impl()
 
-    @SuppressLint("HandlerLeak")
     internal inner class Impl : Handler(), MessageQueue.IdleHandler {
         override fun handleMessage(msg: Message) {
             var r: Runnable

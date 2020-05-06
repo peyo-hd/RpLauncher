@@ -1,4 +1,4 @@
-package com.peyo.rplauncher
+package com.arpi.rplauncher
 
 import android.view.ViewGroup
 import android.widget.ImageView

@@ -1,4 +1,4 @@
-package com.peyo.rplauncher
+package com.arpi.rplauncher
 
 import android.content.ComponentName
 import android.content.Context
@@ -8,10 +8,10 @@ import android.graphics.drawable.Drawable
 
 class AppInfo internal constructor(context: Context, private val mActivityInfo: ActivityInfo) {
 
-    private val mPm: PackageManager
-    val componentName: ComponentName
+    private val mPm: PackageManager = context.packageManager
+    val componentName: ComponentName = ComponentName(mActivityInfo.packageName, mActivityInfo.name)
 
-    val label: CharSequence?
+    val label: CharSequence
         get() = mActivityInfo.loadLabel(mPm)
 
     val icon: Drawable?
@@ -19,10 +19,5 @@ class AppInfo internal constructor(context: Context, private val mActivityInfo: 
 
     val banner: Drawable?
         get() = mActivityInfo.loadBanner(mPm)
-
-    init {
-        mPm = context.packageManager
-        componentName = ComponentName(mActivityInfo.packageName, mActivityInfo.name)
-    }
 
 }
