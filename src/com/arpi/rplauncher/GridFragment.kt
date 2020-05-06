@@ -35,9 +35,11 @@ class GridFragment : VerticalGridFragment() {
     }
 
     fun updateApps(apps: ArrayList<AppInfo>) {
+        mAdapter.clear()
         for (i in apps.indices) {
             mAdapter.add(apps[i])
         }
+        mAdapter.notifyItemRangeChanged(0, apps.size)
     }
 
     companion object {
