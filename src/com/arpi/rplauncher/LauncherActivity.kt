@@ -24,16 +24,7 @@ class LauncherActivity : Activity(), LauncherModel.Callbacks {
         }
         mModel = LauncherModel(applicationContext, this)
         mModel.startLoader()
-    }
 
-    private val mPackageListener = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            mModel.startLoader()
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
         registerReceiver(mPackageListener,
                 IntentFilter().apply {
                     addAction(Intent.ACTION_PACKAGE_ADDED)
@@ -45,8 +36,14 @@ class LauncherActivity : Activity(), LauncherModel.Callbacks {
         )
     }
 
-    override fun onStop() {
-        super.onStop()
+    private val mPackageListener = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            mModel.startLoader()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         unregisterReceiver(mPackageListener)
     }
 

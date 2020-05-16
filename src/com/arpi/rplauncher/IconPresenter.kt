@@ -6,15 +6,15 @@ import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 
 class IconPresenter : Presenter() {
-    override fun onCreateViewHolder(viewGroup: ViewGroup): Presenter.ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup): ViewHolder {
         val view = ImageCardView(viewGroup.context)
         val res = view.resources
         view.setMainImageDimensions(res.getDimensionPixelSize(R.dimen.icon_width),
                 res.getDimensionPixelSize(R.dimen.icon_height))
-        return Presenter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(viewHolder: Presenter.ViewHolder, item: Any) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, item: Any) {
         val info = item as AppInfo
         val view = viewHolder.view as ImageCardView
         val banner = info.banner
@@ -28,7 +28,7 @@ class IconPresenter : Presenter() {
         view.titleText = info.label
     }
 
-    override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder) {
+    override fun onUnbindViewHolder(viewHolder: ViewHolder) {
         val view = viewHolder.view as ImageCardView
         view.titleText = null
         view.mainImage = null
