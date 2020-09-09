@@ -30,7 +30,7 @@ class LauncherModel(private val mContext: Context, private val mCallbacks: Callb
                 Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER), 0)
         for (ri in rInfos) {
             val ai = AppInfo(mContext, ri.activityInfo)
-            mAppList.add(ai)
+            addToAppList(ai)
         }
 
         rInfos = pm.queryIntentActivities(
@@ -51,11 +51,15 @@ class LauncherModel(private val mContext: Context, private val mCallbacks: Callb
     }
 
     private fun addToAppList(info: AppInfo) {
+        if (info.componentName.packageName.equals(LEANBACK_SETTINGS_PACKAGE))
+            return
+
         for (ai in mAppList) {
             if (info.componentName == ai.componentName) {
                 return
             }
         }
+
         mAppList.add(info)
     }
 
@@ -69,6 +73,7 @@ class LauncherModel(private val mContext: Context, private val mCallbacks: Callb
 
         internal val sWorker = Handler(sWorkerThread.looper)
 
+        private const val LEANBACK_SETTINGS_PACKAGE = "com.android.tv.settings"
         private const val CATEGORY_LEANBACK_SETTINGS = "android.intent.category.LEANBACK_SETTINGS"
     }
 }
