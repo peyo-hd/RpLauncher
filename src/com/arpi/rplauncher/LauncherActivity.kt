@@ -7,11 +7,14 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.provider.Settings
-import java.util.ArrayList
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
-class LauncherActivity : Activity(), LauncherModel.Callbacks {
+class LauncherActivity : Activity() {
     private lateinit var mModel: LauncherModel
-    private lateinit var mFragment: GridFragment
+    private var mFragment: GridFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +25,9 @@ class LauncherActivity : Activity(), LauncherModel.Callbacks {
                     .replace(R.id.grid_fragment, mFragment)
                     .commit()
         }
-        mModel = LauncherModel(applicationContext, this)
-        mModel.startLoader()
+
+        mModel = LauncherModel(applicationContext)
+        refreshAppList()
 
         registerReceiver(mPackageListener,
                 IntentFilter().apply {
@@ -34,23 +38,30 @@ class LauncherActivity : Activity(), LauncherModel.Callbacks {
                     addDataScheme("package")
                 }
         )
+
+        Settings.Secure.putInt(getContentResolver(),
+                Settings.Secure.TV_USER_SETUP_COMPLETE, 1)
     }
 
     private val mPackageListener = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            mModel.startLoader()
+            refreshAppList()
+        }
+    }
+
+    private val appListMutex = Mutex()
+
+    private fun refreshAppList() {
+        GlobalScope.launch {
+            appListMutex.withLock {
+                mModel.loadAppList()
+                mFragment?.updateApps(mModel.getAppList())
+            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(mPackageListener)
-    }
-
-    override fun bindAllApplications(apps: ArrayList<AppInfo>) {
-        mFragment.updateApps(apps)
-
-        Settings.Secure.putInt(getContentResolver(),
-                Settings.Secure.TV_USER_SETUP_COMPLETE, 1)
     }
 }

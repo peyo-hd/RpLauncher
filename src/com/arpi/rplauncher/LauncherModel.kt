@@ -2,28 +2,16 @@ package com.arpi.rplauncher
 
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
-import android.os.HandlerThread
 import java.util.ArrayList
 
-class LauncherModel(private val mContext: Context, private val mCallbacks: Callbacks?) {
+class LauncherModel(private val mContext: Context) {
     private val mAppList: ArrayList<AppInfo> = ArrayList()
-    private var mHandler = DeferredHandler()
 
-    interface Callbacks {
-        fun bindAllApplications(apps: ArrayList<AppInfo>)
+    suspend fun getAppList(): ArrayList<AppInfo> {
+        return mAppList
     }
 
-    fun startLoader() {
-        sWorker.post {
-            getAppList()
-            mHandler.post(Runnable {
-                mCallbacks?.bindAllApplications(mAppList)
-            })
-        }
-    }
-
-    private fun getAppList() {
+    suspend fun loadAppList() {
         mAppList.clear()
         val pm = mContext.packageManager
         var rInfos = pm.queryIntentActivities(
@@ -59,21 +47,9 @@ class LauncherModel(private val mContext: Context, private val mCallbacks: Callb
                 return
             }
         }
-
         mAppList.add(info)
     }
 
-    companion object {
-
-        private val sWorkerThread = HandlerThread("launcher-loader")
-
-        init {
-            sWorkerThread.start()
-        }
-
-        internal val sWorker = Handler(sWorkerThread.looper)
-
-        private const val LEANBACK_SETTINGS_PACKAGE = "com.android.tv.settings"
-        private const val CATEGORY_LEANBACK_SETTINGS = "android.intent.category.LEANBACK_SETTINGS"
-    }
+    private val LEANBACK_SETTINGS_PACKAGE = "com.android.tv.settings"
+    private val CATEGORY_LEANBACK_SETTINGS = "android.intent.category.LEANBACK_SETTINGS"
 }

@@ -9,6 +9,7 @@ android_app {
       "androidx.legacy_legacy-support-v4",
       "androidx.recyclerview_recyclerview",
       "androidx.leanback_leanback",
+      "kotlinx-coroutines-core",
     ],
 
     srcs: ["src/**/*.kt"],
