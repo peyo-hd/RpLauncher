@@ -1,5 +1,6 @@
 package com.arpi.rplauncher
 
+import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -27,6 +28,10 @@ class GridFragment : VerticalGridFragment() {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
             viewHolder.view.context.startActivity(intent)
         }
+        setOnItemViewSelectedListener{ _, item, _, _ ->
+            val info = item as AppInfo
+            selectedComponent = info.componentName
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -44,5 +49,6 @@ class GridFragment : VerticalGridFragment() {
 
     companion object {
         private val NUM_COLUMNS = 5
+        public var selectedComponent : ComponentName = ComponentName("","")
     }
 }

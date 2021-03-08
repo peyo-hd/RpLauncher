@@ -1,11 +1,11 @@
 buildscript {
-    ext.kotlin_version = '1.4.10'
+    ext.kotlin_version = '1.4.21'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId "com.arpi.rplauncher"
-        minSdkVersion 28
+        minSdkVersion 29
         targetSdkVersion 30
     }
 

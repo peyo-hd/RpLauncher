@@ -25,6 +25,12 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
+        <receiver android:name=".GlobalKeyReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.GLOBAL_BUTTON" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

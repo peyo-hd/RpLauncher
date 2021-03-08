@@ -1,12 +1,15 @@
 package com.arpi.rplauncher
 
 import android.app.Activity
+import android.app.ActivityManager
+import android.app.ActivityOptions
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.provider.Settings
+import android.view.KeyEvent
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -63,5 +66,22 @@ class LauncherActivity : Activity() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(mPackageListener)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_F9) {
+            val intent = Intent(Intent.ACTION_MAIN)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .setComponent(GridFragment.selectedComponent)
+
+            val am = this.getSystemService(ACTIVITY_SERVICE) as ActivityManager
+            if (am.isActivityStartAllowedOnDisplay(this, 1, intent)) {
+                val bundle = ActivityOptions.makeBasic()
+                    .setLaunchDisplayId(1).toBundle()
+                this.startActivity(intent, bundle)
+                return true
+            }
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }
