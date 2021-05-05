@@ -43,7 +43,7 @@ class LauncherActivity : Activity() {
         )
 
         Settings.Secure.putInt(getContentResolver(),
-                Settings.Secure.TV_USER_SETUP_COMPLETE, 1)
+                "tv_user_setup_complete", 1)
     }
 
     private val mPackageListener = object : BroadcastReceiver() {
