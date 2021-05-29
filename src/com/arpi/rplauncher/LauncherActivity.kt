@@ -69,7 +69,7 @@ class LauncherActivity : Activity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_F9) {
+        if (keyCode == KeyEvent.KEYCODE_F6) {
             val intent = Intent(Intent.ACTION_MAIN)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .setComponent(GridFragment.selectedComponent)

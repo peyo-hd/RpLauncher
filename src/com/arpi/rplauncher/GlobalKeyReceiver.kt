@@ -16,7 +16,7 @@ class GlobalKeyReceiver : BroadcastReceiver() {
                 if (event.action == KeyEvent.ACTION_DOWN) {
                     when (event.keyCode) {
                         KeyEvent.KEYCODE_F1 -> startHomeOnPrimaryDisplay(context)
-                        KeyEvent.KEYCODE_F10 -> startSettingsOnPrimaryDisplay(context)
+                        KeyEvent.KEYCODE_F7 -> startSettingsOnPrimaryDisplay(context)
                     }
                 }
             }
@@ -29,7 +29,6 @@ class GlobalKeyReceiver : BroadcastReceiver() {
             .addCategory(Intent.CATEGORY_HOME)
         val bundle = ActivityOptions.makeBasic()
             .setLaunchDisplayId(0).toBundle()
-
         context.startActivity(intent, bundle)
     }
 
