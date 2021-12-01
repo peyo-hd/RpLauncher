@@ -18,6 +18,7 @@
         android:theme="@style/Theme.Leanback">
         <activity
             android:name=".LauncherActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.Leanback.VerticalGrid">
@@ -28,7 +29,9 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".GlobalKeyReceiver">
+        <receiver
+	    android:name=".GlobalKeyReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.GLOBAL_BUTTON" />
             </intent-filter>

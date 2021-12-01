@@ -1,11 +1,11 @@
 buildscript {
-    ext.kotlin_version = '1.5.0'
+    ext.kotlin_version = '1.6.0'
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.0'
+        classpath 'com.android.tools.build:gradle:7.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -15,7 +15,7 @@ apply plugin: 'kotlin-android'
 
 repositories {
     google()
-    mavenCentral()
+    jcenter()
 }
 
 android {
@@ -28,12 +28,12 @@ android {
         }
     }
 
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "com.arpi.rplauncher"
         minSdkVersion 30
-        targetSdkVersion 30
+        targetSdkVersion 31
     }
 
     buildTypes {
@@ -52,7 +52,7 @@ android {
 }
 
 dependencies {
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation "androidx.leanback:leanback:1.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
