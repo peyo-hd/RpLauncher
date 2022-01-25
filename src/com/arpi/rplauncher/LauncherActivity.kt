@@ -18,6 +18,7 @@ import kotlinx.coroutines.sync.withLock
 class LauncherActivity : Activity() {
     private lateinit var mModel: LauncherModel
     private var mFragment: GridFragment? = null
+    private val secondDisplayId: Int =2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,9 +76,9 @@ class LauncherActivity : Activity() {
                 .setComponent(GridFragment.selectedComponent)
 
             val am = this.getSystemService(ACTIVITY_SERVICE) as ActivityManager
-            if (am.isActivityStartAllowedOnDisplay(this, 1, intent)) {
+            if (am.isActivityStartAllowedOnDisplay(this, secondDisplayId, intent)) {
                 val bundle = ActivityOptions.makeBasic()
-                    .setLaunchDisplayId(1).toBundle()
+                    .setLaunchDisplayId(secondDisplayId).toBundle()
                 this.startActivity(intent, bundle)
                 return true
             }
