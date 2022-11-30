@@ -14,7 +14,7 @@ class IconPresenter : Presenter() {
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, item: Any) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, item: Any?) {
         val info = item as AppInfo
         val view = viewHolder.view as ImageCardView
         val banner = info.banner
